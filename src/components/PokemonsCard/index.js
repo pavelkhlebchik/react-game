@@ -1,33 +1,43 @@
+import { useState } from 'react';
+
 import pokemons from './pokemons.module.css';
 
-const PokemonsCard = () => {
+import cardBackSide from '../../assets/card-back-side.jpg';
+
+const PokemonsCard = ({ id, img, name, type, values }) => {
+  const [isActive, setActive] = useState(false);
+
+  const handlerClick = () => {
+    setActive(!isActive)
+  }
+
   return (
-    <div className="root">
-      <div className="pokemonCard">
-        <div className="cardFront">
-          <div className="wrap front">
-            <div className="pokemon <-- Type Pokemon -->">
-              <div className="values">
-                <div className="count top"><-- Count Value --></div>
-                <div className="count right"><-- Count Value --></div>
-                <div className="count bottom"><-- Count Value --></div>
-                <div className="count left"><-- Count Value --></div>
+    <div className={pokemons.root} onClick={handlerClick}>
+      <div className={`${pokemons.pokemonCard} ${isActive ? pokemons.active : ''}`}>
+        <div className={pokemons.cardFront}>
+          <div className={`${pokemons.wrap} ${pokemons.front}`}>
+            <div className={pokemons.pokemon}>
+              <div className={pokemons.values}>
+                <div className={`${pokemons.count} ${pokemons.top}`}>{values.top}</div>
+                <div className={`${pokemons.count} ${pokemons.right}`}>{values.right}</div>
+                <div className={`${pokemons.count} ${pokemons.bottom}`}>{values.bottom}</div>
+                <div className={`${pokemons.count} ${pokemons.left}`}>{values.left}</div>
               </div>
-              <div className="imgContainer">
-                <img src="<-- Pokemon Picture -->" alt="<-- Name Pokemon -->" />
+              <div className={pokemons.imgContainer}>
+                <img src={img} alt={name} />
               </div>
-              <div className="info">
-                <span className="number">#{< --ID Pokemon -->}</span>
-                <h3 className="name"><-- Name Pokemon --></h3>
-                <small className="type">Type: <span><-- Type Pokemon --></span></small>
+              <div className={pokemons.info}>
+                <span className={pokemons.number}>{id}</span>
+                <h3 className={pokemons.name}>{name}</h3>
+                <small className={pokemons.type}>Type: <span>{type}</span></small>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="cardBack">
-          <div className="wrap back">
-            <img src="./assets/card-back-side.jpg" alt="Сard Backed" />
+        <div className={pokemons.cardBack}>
+          <div className={`${pokemons.wrap} ${pokemons.back}`}>
+            <img src={cardBackSide} alt="Сard Backed" />
           </div>
         </div>
 
@@ -35,3 +45,5 @@ const PokemonsCard = () => {
     </div>
   )
 }
+
+export default PokemonsCard;
