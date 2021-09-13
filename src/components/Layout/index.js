@@ -1,7 +1,7 @@
 import layout from './layout.module.css';
 
 
-const Layout = ({ title, descr, urlBg, colorBg = '#ff9', children }) => {
+const Layout = ({ title, descr, urlBg, colorBg = "#ff9", children }) => {
   const bgStyle = urlBg ? { backgroundImage: `url(${urlBg})` } : { background: `${colorBg}` };
   return (
     <section className={layout.root} style={bgStyle}>
