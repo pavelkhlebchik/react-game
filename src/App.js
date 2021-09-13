@@ -147,11 +147,14 @@ const App = () => {
   return (
     <>
       <Header
-        title='This is title'
-        descr='This is description'
+        title="Pokemon Game"
+        descr="This is simple triple triad card game"
       />
       <Layout
+        id="rules"
+        title="Rules"
         urlBg={bg}
+
       >
         <p>In the game two players face off against one another, one side playing as "blue", the other as "red" on a 3x3 grid.
           Each player has five cards in a hand and the aim is to capture the opponent's cards by turning them into the player's own color of red or blue.</p>
@@ -162,7 +165,9 @@ const App = () => {
           If the rank of theА opponent's card is higher than the player's card, the player's card will be captured and turned into the opponent's color.
           If the player's rank is higher, the opponent's card will be captured and changed into the player's color instead. </p>
       </Layout>
-      <Layout>
+      <Layout
+        id="card"
+        title="Cards">
         <p>In the game two players face off against one another, one side playing as "blue", the other as "red" on a 3x3 grid.
           Each player has five cards in a hand and the aim is to capture the opponent's cards by turning them into the player's own color of red or blue.</p>
 
