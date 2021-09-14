@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import classNames from 'classnames';
 
 import pokemons from './pokemons.module.css';
 
@@ -13,15 +14,15 @@ const PokemonsCard = ({ id, img, name, type, values }) => {
 
   return (
     <div className={pokemons.root} onClick={handlerClick}>
-      <div className={`${pokemons.pokemonCard} ${isActive ? pokemons.active : ''}`}>
+      <div className={classNames(pokemons.pokemonCard, {[pokemons.active]: isActive})}>
         <div className={pokemons.cardFront}>
-          <div className={`${pokemons.wrap} ${pokemons.front}`}>
+          <div className={classNames(pokemons.wrap, pokemons.front)}>
             <div className={pokemons.pokemon}>
               <div className={pokemons.values}>
-                <div className={`${pokemons.count} ${pokemons.top}`}>{values.top}</div>
-                <div className={`${pokemons.count} ${pokemons.right}`}>{values.right}</div>
-                <div className={`${pokemons.count} ${pokemons.bottom}`}>{values.bottom}</div>
-                <div className={`${pokemons.count} ${pokemons.left}`}>{values.left}</div>
+                <div className={classNames(pokemons.count, pokemons.top)}>{values.top}</div>
+                <div className={classNames(pokemons.count, pokemons.right)}>{values.right}</div>
+                <div className={classNames(pokemons.count, pokemons.bottom)}>{values.bottom}</div>
+                <div className={classNames(pokemons.count, pokemons.left)}>{values.left}</div>
               </div>
               <div className={pokemons.imgContainer}>
                 <img src={img} alt={name} />
@@ -36,7 +37,7 @@ const PokemonsCard = ({ id, img, name, type, values }) => {
         </div>
 
         <div className={pokemons.cardBack}>
-          <div className={`${pokemons.wrap} ${pokemons.back}`}>
+          <div className={classNames(pokemons.wrap, pokemons.back)}>
             <img src={cardBackSide} alt="Сard Backed" />
           </div>
         </div>
