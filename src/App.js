@@ -7,7 +7,6 @@ import './App.css';
 const App = () => {
   const [page, setPage] = useState('app');
   const handleChangePage = (page) => {
-    console.log('#### <App />');
     setPage(page);
   }
   switch(page) {

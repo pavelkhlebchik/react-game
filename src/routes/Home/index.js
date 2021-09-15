@@ -151,7 +151,9 @@ const HomePage = ({ onChangePage }) => {
 
   return (
     <>
-      <MenuHeader />
+      <MenuHeader 
+      
+      />
       <Header
         title="Pokemon Game"
         descr="This is simple triple triad card game"

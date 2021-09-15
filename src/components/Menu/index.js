@@ -1,9 +1,13 @@
 import menu from './menu.module.css';
 import classNames from 'classnames';
+import { useState } from 'react';
 
-const Menu = () => {
+const Menu = ({isOpen}) => {
   return (
-    <div className={classNames(menu.menuContainer, menu.active, menu.deactive)}>
+    <div className={classNames(menu.menuContainer,{
+      [menu.active]: isOpen === true,
+      [menu.deactive]: isOpen === false
+    })}>
       <div className={menu.overlay} />
       <div className={menu.menuItems}>
         <ul>
