@@ -2,7 +2,6 @@ import header from './header.module.css';
 
 const Header = ({title, descr, onClickButton}) => {
   const handlerClick = () => {
-    console.log('#### <Header />');
     onClickButton && onClickButton('game');
   }
   return (
