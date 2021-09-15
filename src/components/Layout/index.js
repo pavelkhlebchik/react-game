@@ -1,4 +1,5 @@
 import layout from './layout.module.css';
+import classNames from 'classnames';
 
 
 const Layout = ({ title, descr, urlBg, colorBg = "#ff9", children }) => {
@@ -11,7 +12,7 @@ const Layout = ({ title, descr, urlBg, colorBg = "#ff9", children }) => {
             {title && (<h3>{title}</h3>)}
             <span className={layout.separator}></span>
           </div>
-          <div className={`${layout.desc} ${layout.full}`}>
+          <div className={classNames(layout.desc, layout.full)}>
             {children}
           </div>
         </article>
