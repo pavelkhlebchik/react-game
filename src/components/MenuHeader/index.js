@@ -1,6 +1,3 @@
-import mh from './menuheader.module.css';
-import classNames from 'classnames';
-
 import Menu from '../Menu';
 import Navbar from '../Navbar';
 import { useState } from 'react';
