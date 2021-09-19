@@ -1,8 +1,6 @@
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
-import Footer from '../../components/Footer';
 import PokemonsCard from '../../components/PokemonsCard';
-import MenuHeader from '../../components/MenuHeader';
 
 import './style.module.css'
 
@@ -151,7 +149,6 @@ const HomePage = ({ onChangePage }) => {
 
   return (
     <>
-      {/* <MenuHeader /> */}
       <Header
         title="Pokemon Game"
         descr="This is simple triple triad card game"
