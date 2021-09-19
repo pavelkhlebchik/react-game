@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import pokemons from './pokemons.module.css';
 import cardBackSide from '../../assets/card-back-side.jpg';
 
-const PokemonsCard = ({ id, img, name, type, values, isActiveCard, handleClickCard}) => {
+const PokemonsCard = ({ id, img, name, type, values, isActive, handleClickCard}) => {
 
   const handleClick = () => {
     handleClickCard && handleClickCard(id);
@@ -11,7 +11,7 @@ const PokemonsCard = ({ id, img, name, type, values, isActiveCard, handleClickCa
 
   return (
     <div className={pokemons.root} onClick={handleClick}>
-      <div className={classNames(pokemons.pokemonCard, {[pokemons.active]: isActiveCard})}>
+      <div className={classNames(pokemons.pokemonCard, {[pokemons.active]: !isActive})}>
         <div className={pokemons.cardFront}>
           <div className={classNames(pokemons.wrap, pokemons.front)}>
             <div className={pokemons.pokemon}>

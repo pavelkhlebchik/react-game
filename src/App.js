@@ -10,8 +10,7 @@ import NotFoundPage from "./routes/NotFound";
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/Footer";
 
-import s from "./style.module.css";
-
+import s from "./style.module.css"
 import './App.css';
 
 const App = () => {
