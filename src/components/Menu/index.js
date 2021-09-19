@@ -1,10 +1,9 @@
 import menu from './menu.module.css';
 import classNames from 'classnames';
-import { useState } from 'react';
 
-const Menu = ({isOpen}) => {
+const Menu = ({ isOpen }) => {
   return (
-    <div className={classNames(menu.menuContainer,{
+    <div className={classNames(menu.menuContainer, {
       [menu.active]: isOpen === true,
       [menu.deactive]: isOpen === false
     })}>
