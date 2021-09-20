@@ -1,16 +1,23 @@
 import nav from './navbar.module.css';
 import classNames from 'classnames';
 
-const Navbar = () => {
+const Navbar = ({ isOpen, bgActive = false, handleClick }) => {
   return (
-    <nav className={nav.root}>
+    <nav className={classNames(
+      nav.root,
+      {
+        [nav.bgActive]: bgActive
+      }
+    )}>
       <div className={nav.navWrapper}>
         <p className={nav.brand}>
           LOGO
         </p>
-        <a className={classNames(nav.menuButton, nav.active)}>
+        <div className={classNames(nav.menuButton, { [nav.active]: isOpen })}
+          onClick={handleClick}
+        >
           <span />
-        </a>
+        </div>
       </div>
     </nav>
   )
