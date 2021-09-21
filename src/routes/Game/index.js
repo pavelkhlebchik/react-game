@@ -1,30 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router";
-
-import s from "./style.module.css";
 
 import PokemonsCard from "../../components/PokemonsCard";
 
-import database from '../../service/firebase';
+
+import s from "./style.module.css";
+import { FireBaseContext } from "../../service/firebaseContext";
+
+
 
 const GamePage = () => {
+  const firebase = useContext(FireBaseContext);
+
   const [pokemons, setPokemons] = useState({});
 
   const history = useHistory();
-
-  const handleClick = () => {
-    history.push('/');
-  };
-
   
-  const getPokemons = () => {
-    database.ref('pokemons').once('value', (snapshot) => {
-      setPokemons(snapshot.val());
-    });
-  };
-
   useEffect(() => {
-    getPokemons();
+    firebase.getPokemonSoket((pokemons) => {
+      setPokemons(pokemons)
+    })
   }, []);
   
     const handleClickPokemonCard = (id) => {
@@ -35,21 +30,33 @@ const GamePage = () => {
             pokemon.active = !pokemon.active;
           };
           acc[item[0]] = pokemon;
-          database.ref('pokemons/' + item[0]).set(pokemon);
+
+          firebase.postPokemon([item[0]], pokemon)
+
           return acc;
         }, {});
       });
     };
     
-    const addPokemon = () => {
-    const data = Object.entries(pokemons)
-    const newKey = database.ref().child('pokemons').push().key;
-    database.ref('pokemons/' + newKey).set(data[0][1]).then(() => getPokemons());
+    const handleAddPokemon = () => {
+      const pokemonsArr = Object.entries(pokemons);
+      const pokemonLength = pokemonsArr.length; 
+      const index = Math.floor(Math.random() * pokemonLength);
+      const newPokemon = pokemonsArr[index];
+      const pokemon = newPokemon[1];
+      const newId = Date.now();
+      pokemon.id = newId;
+
+      firebase.addPokemon(pokemon);
     }
+    
+    const handleClick = () => {
+      history.push('/');
+    };
 
   return (
     <div className={s.wrapper}>
-      <button onClick={addPokemon}>
+      <button onClick={handleAddPokemon}>
         ADD NEW POKEMON
       </button>
       <div className="flex">

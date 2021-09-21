@@ -11,7 +11,7 @@ const PokemonsCard = ({ id, img, name, type, values, isActive, handleClickCard})
 
   return (
     <div className={pokemons.root} onClick={handleClick}>
-      <div className={classNames(pokemons.pokemonCard, {[pokemons.active]: !isActive})}>
+      <div className={classNames(pokemons.pokemonCard, {[pokemons.active]: isActive})}>
         <div className={pokemons.cardFront}>
           <div className={classNames(pokemons.wrap, pokemons.front)}>
             <div className={pokemons.pokemon}>
