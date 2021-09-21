@@ -16,33 +16,36 @@ const GamePage = () => {
     history.push('/');
   };
 
-  useEffect(() => {
+  
+  const getPokemons = () => {
     database.ref('pokemons').once('value', (snapshot) => {
       setPokemons(snapshot.val());
     });
-  });
-
-  const handleClickPokemonCard = (id) => {
-    setPokemons(prevState => {
-      return Object.entries(prevState).reduce((acc, item) => {
-        const pokemon = { ...item[1] };
-        if (pokemon.id === id) {
-          pokemon.active = !pokemon.active;
-          database.ref('pokemons/' + item[0]).set({
-            ...pokemon
-          });
-        };
-
-        acc[item[0]] = pokemon;
-        return acc;
-      }, {});
-    });
   };
 
-  const addPokemon = (data) => {
+  useEffect(() => {
+    getPokemons();
+  }, []);
+  
+    const handleClickPokemonCard = (id) => {
+      setPokemons(prevState => {
+        return Object.entries(prevState).reduce((acc, item) => {
+          const pokemon = { ...item[1] };
+          if (pokemon.id === id) {
+            pokemon.active = !pokemon.active;
+          };
+          acc[item[0]] = pokemon;
+          database.ref('pokemons/' + item[0]).set(pokemon);
+          return acc;
+        }, {});
+      });
+    };
+    
+    const addPokemon = () => {
+    const data = Object.entries(pokemons)
     const newKey = database.ref().child('pokemons').push().key;
-    database.ref('pokemons/' + newKey).set(data);
-  }
+    database.ref('pokemons/' + newKey).set(data[0][1]).then(() => getPokemons());
+    }
 
   return (
     <div className={s.wrapper}>
