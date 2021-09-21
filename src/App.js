@@ -10,7 +10,7 @@ import NotFoundPage from "./routes/NotFound";
 import MenuHeader from "./components/MenuHeader";
 import Footer from "./components/Footer";
 
-import { FireBaseContext } from "./service/firebaseContext";
+import { FireBaseContext } from "./context/firebaseContext";
 import FireBase from "./service/firebase";
 
 import s from "./style.module.css"

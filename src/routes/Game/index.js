@@ -1,83 +1,43 @@
-import { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router";
+import { useRouteMatch, Switch, Route} from "react-router-dom";
+import { useState } from "react";
 
-import PokemonsCard from "../../components/PokemonsCard";
+import StartPage from "./routes/Start";
+import BoardPage from "./routes/Board";
+import FinishPage from "./routes/Finish";
 
-
-import s from "./style.module.css";
-import { FireBaseContext } from "../../service/firebaseContext";
-
+import { PokemonContext } from "../../context/pokemonContext";
 
 
 const GamePage = () => {
-  const firebase = useContext(FireBaseContext);
+  const [selectedPokemons, setSelectedPokemons] = useState({});
+  const match = useRouteMatch();
+  const handleSelectedPokemons = (key, pokemon) => {
+    setSelectedPokemons(prevState => {
+      if (prevState[key]) {
+        const copyState = {...prevState};
+        delete copyState[key];
 
-  const [pokemons, setPokemons] = useState({});
+        return copyState;
+      }
 
-  const history = useHistory();
-  
-  useEffect(() => {
-    firebase.getPokemonSoket((pokemons) => {
-      setPokemons(pokemons)
+      return {
+        ...prevState,
+        [key]: pokemon,
+      }
     })
-  }, []);
-  
-    const handleClickPokemonCard = (id) => {
-      setPokemons(prevState => {
-        return Object.entries(prevState).reduce((acc, item) => {
-          const pokemon = { ...item[1] };
-          if (pokemon.id === id) {
-            pokemon.active = !pokemon.active;
-          };
-          acc[item[0]] = pokemon;
-
-          firebase.postPokemon([item[0]], pokemon)
-
-          return acc;
-        }, {});
-      });
-    };
-    
-    const handleAddPokemon = () => {
-      const pokemonsArr = Object.entries(pokemons);
-      const pokemonLength = pokemonsArr.length; 
-      const index = Math.floor(Math.random() * pokemonLength);
-      const newPokemon = pokemonsArr[index];
-      const pokemon = newPokemon[1];
-      const newId = Date.now();
-      pokemon.id = newId;
-
-      firebase.addPokemon(pokemon);
-    }
-    
-    const handleClick = () => {
-      history.push('/');
-    };
-
+  }
   return (
-    <div className={s.wrapper}>
-      <button onClick={handleAddPokemon}>
-        ADD NEW POKEMON
-      </button>
-      <div className="flex">
-        {
-          Object.entries(pokemons).map(([key, { id, type, name, img, values, active }]) => <PokemonsCard
-            key={key}
-            id={id}
-            type={type}
-            name={name}
-            img={img}
-            values={values}
-            isActive={active}
-            handleClickCard={handleClickPokemonCard}
-          />)
-        }
-      </div>
-      <button onClick={handleClick}>
-        BACK TO HOME
-      </button>
-    </div>
-  )
-}
+    <PokemonContext.Provider value={{
+      pokemons: [selectedPokemons],
+      onSelectedPokemons: handleSelectedPokemons
+    }}>
+      <Switch>
+          <Route path={`${match.path}/`} exact component={StartPage} />
+          <Route path={`${match.path}/board`} component={BoardPage} />
+          <Route path={`${match.path}/finish`} component={FinishPage} />
+      </Switch>
+      </PokemonContext.Provider>
+  );
+};
 
 export default GamePage;

@@ -11,9 +11,9 @@ const firebaseConfig = {
   appId: "1:966053483247:web:2d03743dd406f9ee0c011a"
 };
 
+firebase.initializeApp(firebaseConfig);
 class FireBase {
   constructor() {
-    firebase.initializeApp(firebaseConfig);
 
     this.fire = firebase;
     this.database = this.fire.database();
@@ -24,6 +24,11 @@ class FireBase {
       cb(snapshot.val());
     })
   }
+
+  offPokemonSoket = () => {
+    this.database.ref('pokemons').off();
+  }
+
 
   getPokemonsOnce = async () => {
     return await this.database.ref('pokemons').once('value').then(snapshot => snapshot.val());
