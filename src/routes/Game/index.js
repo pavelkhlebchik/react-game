@@ -10,7 +10,9 @@ import { PokemonContext } from "../../context/pokemonContext";
 
 const GamePage = () => {
   const [selectedPokemons, setSelectedPokemons] = useState({});
+  console.log('####: Selected Pokemons', selectedPokemons);
   const match = useRouteMatch();
+  
   const handleSelectedPokemons = (key, pokemon) => {
     setSelectedPokemons(prevState => {
       if (prevState[key]) {
@@ -28,7 +30,7 @@ const GamePage = () => {
   }
   return (
     <PokemonContext.Provider value={{
-      pokemons: [selectedPokemons],
+      pokemons: selectedPokemons,
       onSelectedPokemons: handleSelectedPokemons
     }}>
       <Switch>

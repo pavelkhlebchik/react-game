@@ -12,7 +12,6 @@ const StartPage = () => {
   const firebase = useContext(FireBaseContext);
 
   const pokemonsContext = useContext(PokemonContext);
-  console.log(pokemonsContext);
   const [pokemons, setPokemons] = useState({});
 
   const history = useHistory();
@@ -23,7 +22,7 @@ const StartPage = () => {
     });
 
     return () => firebase.offPokemonSoket();
-  }, []);
+  }, [firebase]);
 
   const handleChangeSelected = (key) => {
     const pokemon = { ...pokemons[key] };
@@ -42,9 +41,15 @@ const StartPage = () => {
     history.push('/');
   };
 
+  const handleStartGameClick = () => {
+    history.push('game/board');
+  } 
+
   return (
     <>
-      <button>
+      <button onClick={handleStartGameClick}
+      disabled={Object.keys(pokemonsContext.pokemons).length < 5}
+      >
         START GAME
       </button>
       <div className={s.flex}>
