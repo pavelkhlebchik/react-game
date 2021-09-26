@@ -10,7 +10,7 @@ import { PokemonContext } from "../../context/pokemonContext";
 
 const GamePage = () => {
   const [selectedPokemons, setSelectedPokemons] = useState({});
-  console.log('####: Selected Pokemons', selectedPokemons);
+  const [player2Pokemons, setPlayer2Pokemons] = useState([]);
   const match = useRouteMatch();
   
   const handleSelectedPokemons = (key, pokemon) => {
@@ -28,10 +28,17 @@ const GamePage = () => {
       }
     })
   }
+
+  const cleanPokemons = () => {
+    setSelectedPokemons({});
+    setPlayer2Pokemons([]);
+  }
   return (
     <PokemonContext.Provider value={{
       pokemons: selectedPokemons,
-      onSelectedPokemons: handleSelectedPokemons
+      player2PokemonsContext: {player2Pokemons, setPlayer2Pokemons}, 
+      onSelectedPokemons: handleSelectedPokemons,
+      clean: cleanPokemons,
     }}>
       <Switch>
           <Route path={`${match.path}/`} exact component={StartPage} />
