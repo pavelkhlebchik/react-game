@@ -5,8 +5,6 @@ import s from './finish.module.css';
 
 const FinishPage = () => {
   const { pokemons, player2PokemonsContext } = useContext(PokemonContext);
-  console.log('#### player1', pokemons);
-console.log('#### player2', player2PokemonsContext.player2Pokemons);
   return (
     <>
       <div className={s.flex}>

@@ -24,7 +24,6 @@ const counterWin = (board, player1, player2) => {
 
 const BoardPage = () => {
 	const { pokemons, player2PokemonsContext } = useContext(PokemonContext);
-	console.log('#### context', player2PokemonsContext)
 	const [board, setBoard] = useState([]);
 	const [player1, setPlayer1] = useState(() => {
 		return Object.values(pokemons).map(item => ({
@@ -61,8 +60,6 @@ const BoardPage = () => {
 	// }
 
 	const handleClickBoardPlate = async (position) => {
-		console.log('####, position', position);
-		console.log('#### card', choiseCard);
 		if (choiseCard) {
 			const params = {
 				position,
