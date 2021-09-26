@@ -1,5 +1,6 @@
 .wrap {
   display: grid;
+  row-gap: 20px;
 }
 
 .flex {
@@ -9,6 +10,6 @@
   gap: 20px;
 }
 
-.button {
+button {
   justify-self: center;
 }
