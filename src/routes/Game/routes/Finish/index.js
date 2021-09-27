@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PokemonContext } from '../../../../context/pokemonContext';
 import PokemonsCard from '../../../../components/PokemonsCard';
@@ -7,7 +7,21 @@ import s from './finish.module.css';
 const FinishPage = () => {
   const { pokemons, player2PokemonsContext } = useContext(PokemonContext);
   const pokemonContext = useContext(PokemonContext);
- 
+  const [enemyCard, setEnemyCard] = useState({})
+
+  const handleChoiseCard = (id) => {
+    if (pokemonContext.winner === true) {
+      Object.values(player2PokemonsContext.player2Pokemons).map(item => {
+        if (item.id === id) {
+          setEnemyCard(item);
+          item.selected = true;
+        } else {
+          item.selected = false;
+        } return item
+      })
+    }
+  }
+
   const history = useHistory();
   const handleBackToStart = () => {
     history.replace('/game');
@@ -36,9 +50,11 @@ const FinishPage = () => {
           })
         }
       </div>
-      <button onClick={handleBackToStart} >END GAME</button> 
-      <div className={s.flex}>
-      {
+      <button onClick={handleBackToStart}>END GAME</button>
+      <div
+        className={s.flex}
+      >
+        {
           player2PokemonsContext.player2Pokemons.map((item) => {
             return (
               <PokemonsCard
@@ -49,8 +65,10 @@ const FinishPage = () => {
                 name={item.name}
                 img={item.img}
                 values={item.values}
+                isSelected={item.selected}
                 isActive
                 minimize
+                handleClickCard={handleChoiseCard}
               />
             )
           })

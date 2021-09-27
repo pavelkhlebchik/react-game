@@ -34,7 +34,6 @@ const BoardPage = () => {
 	const [player2, setPlayer2] = useState([]);
 	const [choiseCard, setChoiseCard] = useState(null);
 	const [step, setStep] = useState(0);
-
 	const history = useHistory();
 
 	useEffect(async () => {
@@ -50,14 +49,14 @@ const BoardPage = () => {
 				possession: 'red',
 			})))
 
-			player2PokemonsContext.setPlayer2Pokemons(player2Request.data.map((item => ({...item}))))
+			player2PokemonsContext.setPlayer2Pokemons(player2Request.data.map((item => ({ ...item }))))
 		}
 		fetchData();
 	}, [])
 
-	// if (Object.keys(pokemons).length === 0) {
-	// 	history.replace('/game');
-	// }
+	if (Object.keys(pokemons).length === 0) {
+		history.replace('/game');
+	}
 
 	const handleClickBoardPlate = async (position) => {
 		if (choiseCard) {
@@ -93,8 +92,19 @@ const BoardPage = () => {
 		}
 	}
 
+	const { setWinner } = useContext(PokemonContext);
+
 	useEffect(() => {
 		if (step === 9) {
+			const [count1, count2] = counterWin(board, player1, player2)
+
+			if (count1 > count2) {
+				setWinner(true)
+			} else if (count1 < count2) {
+				setWinner(false)
+			} else {
+				setWinner(false)
+			}
 			history.replace('/game/finish');
 		}
 	})

@@ -11,8 +11,9 @@ import { PokemonContext } from "../../context/pokemonContext";
 const GamePage = () => {
   const [selectedPokemons, setSelectedPokemons] = useState({});
   const [player2Pokemons, setPlayer2Pokemons] = useState([]);
+  const [winner, setWinner] = useState();
   const match = useRouteMatch();
-  
+
   const handleSelectedPokemons = (key, pokemon) => {
     setSelectedPokemons(prevState => {
       if (prevState[key]) {
@@ -39,6 +40,8 @@ const GamePage = () => {
       player2PokemonsContext: {player2Pokemons, setPlayer2Pokemons}, 
       onSelectedPokemons: handleSelectedPokemons,
       clean: cleanPokemons,
+      winner: winner,
+      setWinner: setWinner,
     }}>
       <Switch>
           <Route path={`${match.path}/`} exact component={StartPage} />
