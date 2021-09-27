@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import {FireBaseContext} from '../../../../context/firebaseContext';
 import { PokemonContext } from '../../../../context/pokemonContext';
 import PokemonsCard from '../../../../components/PokemonsCard';
 import s from './finish.module.css';
@@ -7,7 +8,9 @@ import s from './finish.module.css';
 const FinishPage = () => {
   const { pokemons, player2PokemonsContext } = useContext(PokemonContext);
   const pokemonContext = useContext(PokemonContext);
+  const firebase = useContext(FireBaseContext);
   const [enemyCard, setEnemyCard] = useState({})
+  const history = useHistory();
 
   const handleChoiseCard = (id) => {
     if (pokemonContext.winner === true) {
@@ -22,10 +25,10 @@ const FinishPage = () => {
     }
   }
 
-  const history = useHistory();
   const handleBackToStart = () => {
-    history.replace('/game');
+    firebase.addPokemon(enemyCard);
     pokemonContext.clean();
+    history.replace('/game');
   }
 
 

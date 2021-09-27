@@ -38,9 +38,9 @@ class FireBase {
     this.database.ref(`pokemons/${key}`).set(pokemon);
   }
 
-  addPokemon = (data, cb) => {
+  addPokemon = (data) => {
     const newKey = this.database.ref().child('pokemons').push().key;
-    this.database.ref(`pokemons/${newKey}`).set(data).then(() => cb());    
+    this.database.ref(`pokemons/${newKey}`).set(data);
   }
 }
 
