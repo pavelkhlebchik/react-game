@@ -1,3 +1,5 @@
+import { useHistory } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 import PokemonsCard from '../../components/PokemonsCard';
@@ -142,9 +144,11 @@ const POKEMONS =
     }
   ]
 
-const HomePage = ({ onChangePage }) => {
-  const handleClickButton = (page) => {
-    onChangePage && onChangePage(page);
+const HomePage = () => {
+  const history = useHistory();
+
+  const handleClickButton = () => {
+    history.push('/game');
   };
 
   return (
