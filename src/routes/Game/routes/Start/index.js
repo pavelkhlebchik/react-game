@@ -1,20 +1,18 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect} from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
 import PokemonsCard from "../../../../components/PokemonsCard";
 
-import { PokemonContext } from "../../../../context/pokemonContext";
-import { getPokemonsAsync, selectPokemonsData} from "../../../../store/pokemon";
+import { getPokemonsAsync, handleChangeSelectedPokemon, selectedPokemons, selectPokemonsData} from "../../../../store/pokemon";
 import s from "./start.module.css";
 
 
 const StartPage = () => {
 
-  const pokemonsContext = useContext(PokemonContext);
   const pokemonsRedux = useSelector(selectPokemonsData);
+  const selectedPokemonsRedux = useSelector(selectedPokemons);
   const dispatch = useDispatch()
-  const [pokemons, setPokemons] = useState({});
 
   const history = useHistory();
 
@@ -22,23 +20,8 @@ const StartPage = () => {
     dispatch(getPokemonsAsync());
   }, []);
 
-  useEffect(() => {
-    setPokemons(pokemonsRedux)
-  }, [pokemonsRedux]);
-
-
-
-const handleChangeSelected = (key) => {
-  const pokemon = { ...pokemons[key] };
-  pokemonsContext.onSelectedPokemons(key, pokemon);
-
-  setPokemons(prevState => ({
-    ...prevState,
-    [key]: {
-      ...prevState[key],
-      selected: !prevState[key].selected,
-    }
-  }))
+const handleChangeSelected = (key, pokemon) => {
+  dispatch(handleChangeSelectedPokemon({key, pokemon}));
 };
 
 const handleClick = () => {
@@ -52,13 +35,16 @@ const handleStartGameClick = () => {
 return (
   <>
     <button onClick={handleStartGameClick}
-      disabled={Object.keys(pokemonsContext.pokemons).length < 5}
+      disabled={Object.keys(selectedPokemonsRedux).length < 5}
     >
       START GAME
     </button>
     <div className={s.flex}>
       {
-        Object.entries(pokemons).map(([key, { id, type, name, img, values, selected }]) => <PokemonsCard
+        Object.entries(pokemonsRedux).map(([key, pokemon]) => {
+        const { id, type, name, img, values, selected } = pokemon;
+        return (
+        <PokemonsCard
           className={s.card}
           key={key}
           id={id}
@@ -69,12 +55,12 @@ return (
           isActive={true}
           isSelected={selected}
           handleClickCard={() => {
-            if (Object.keys(pokemonsContext.pokemons).length < 5 || selected) {
-              handleChangeSelected(key)
+            if (Object.keys(selectedPokemonsRedux).length < 5 || selected) {
+              handleChangeSelected(key, pokemon)
             }
           }}
         />
-        )
+        )})
       }
     </div>
     <button onClick={handleClick}>
