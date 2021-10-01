@@ -1,5 +1,4 @@
 import { useHistory } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header';
 import Layout from '../../components/Layout';
 import PokemonsCard from '../../components/PokemonsCard';

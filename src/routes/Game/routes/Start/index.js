@@ -18,7 +18,7 @@ const StartPage = () => {
 
   useEffect(() => {
     dispatch(getPokemonsAsync());
-  }, []);
+  }, [dispatch]);
 
 const handleChangeSelected = (key, pokemon) => {
   dispatch(handleChangeSelectedPokemon({key, pokemon}));
