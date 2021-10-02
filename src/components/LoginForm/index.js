@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import s from './form.module.css'
 
-const LoginForm = ({ onSubmit }) => {
+const LoginForm = ({ onSubmit, isReset }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,6 +16,11 @@ const LoginForm = ({ onSubmit }) => {
     setEmail('');
     setPassword('');
   }
+
+  useEffect(() => {
+    setEmail('');
+    setPassword('');
+  }, [isReset])
 
   return (
     <form
