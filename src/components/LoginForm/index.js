@@ -5,10 +5,12 @@ import s from './form.module.css'
 const LoginForm = ({ onSubmit, isReset }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLogin, setLogin] = useState(true);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     onSubmit && onSubmit({
+      type: isLogin ? 'login' : 'signup',
       email,
       password
     })
@@ -51,9 +53,17 @@ const LoginForm = ({ onSubmit, isReset }) => {
           <span className={s.bar}></span>
           <label className={s.label}>Password</label>
         </div>
-        <button>
-          Login
-        </button>
+        <div className={s.flex}>
+          <button>
+            {isLogin ? 'Login' : 'SignUp'}
+          </button>
+          <div 
+            className={s.link}
+            onClick={() => setLogin(!isLogin)}
+          >
+            {isLogin ? 'Register' : 'Login'}
+          </div>
+        </div>
       </div>
     </form>
   );
